@@ -1,88 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="./static/css/styles.css" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src * 'unsafe-inline' 'unsafe-eval'"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tauri App</title>
-        <script src="./static/js/main.js"></script>
-    </head>
-    <body>
-        <main class="container">
-            <h1>Welcome to TauriMan</h1>
-
-            <div class="row">
-                <a
-                    href="https://tauri.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img
-                        src="./assets/tauri.svg"
-                        class="logo tauri"
-                        alt="Tauri logo"
-                    />
-                </a>
-                <a
-                    href="https://pakeplus.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img
-                        src="https://hk.gh-proxy.org/https://github.com/Sjj1024/PakePlus/blob/main/app-icon.png"
-                        class="logo vanilla"
-                        alt="JavaScript logo"
-                    />
-                </a>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>随便听 - 沉浸式音乐体验</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 背景渐变 -->
+        <div class="bg-gradient"></div>
+        
+        <!-- 顶部搜索栏 -->
+        <header class="top-header">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <span>随便听</span>
             </div>
-            <p>Click to get data</p>
-            <form class="row" id="greet-form">
-                <input id="greet-input" placeholder="Enter a name..." />
-                <button type="submit" id="getdata">GET DATA</button>
-            </form>
-            <div class="functions">
-                <a href="./book.html" target="_self">跳转到book.html</a>
-                <a
-                    href="https://www.baidu.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >跳到百度blank
-                </a>
-                <a
-                    href="https://www.baidu.com"
-                    target="_self"
-                    rel="noopener noreferrer"
-                >
-                    跳到百度self
-                </a>
-                <button onclick="sayHello()">点击我</button>
-                <button onclick="sayHello()">下载文件</button>
-                <button onclick="sayHello()">上传文件</button>
-                <button onclick="sayHello()">访问相机</button>
-                <button onclick="sayHello()">访问麦克风</button>
-                <button onclick="sayHello()">访问相册</button>
-                <button class="btn" onclick="openWechat()">打开微信</button>
-                <button class="btn" onclick="openWechatScan()">
-                    打开扫一扫
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="搜索歌曲、歌手...">
+                    <button class="clear-search" id="clear-search" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <button class="search-btn" id="search-btn">
+                    <i class="fas fa-search"></i>
                 </button>
-                <button class="btn" onclick="openZhihu()">打开知乎</button>
-                <button onclick="sayHello()">打开抖音</button>
-                <button onclick="sayHello()">用浏览器打开</button>
-                <button>打开知乎</button>
+                <button class="plugin-switch-btn" id="plugin-switch-btn" title="切换音乐源">
+                    <i class="fas fa-plug"></i>
+                </button>
             </div>
-            <p id="greet-msg"></p>
-            <img src="./static/image/cursor.jpeg" alt="logo" />
-            <video
-                src="https://hk.gh-proxy.org/https://github.com/Sjj1024/PakePlus/blob/main/docs/static/videos/pakeplus.mp4"
-                autoplay
-                controls
-                style="width: 100%; height: 100%"
-            ></video>
-            <audio src="./static/music/yin.mp3" controls></audio>
+            <div class="header-actions">
+                <button class="action-btn" id="local-music-btn" title="本地音乐">
+                    <i class="fas fa-folder-open"></i>
+                </button>
+                <button class="action-btn" id="hot-search-btn" title="热门搜索">
+                    <i class="fas fa-fire"></i>
+                </button>
+                <button class="action-btn" id="recommend-btn" title="推荐歌单">
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
+            </div>
+            <!-- 隐藏的文件上传输入 -->
+            <input type="file" id="local-music-input" accept="audio/*" multiple style="display: none;">
+        </header>
+        
+        <!-- 移动端底部导航栏 -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <button class="nav-item active" data-page="player">
+                <i class="fas fa-music"></i>
+                <span>播放</span>
+            </button>
+            <button class="nav-item" data-page="discover">
+                <i class="fas fa-compass"></i>
+                <span>发现</span>
+            </button>
+            <button class="nav-item" data-page="playlists">
+                <i class="fas fa-folder"></i>
+                <span>歌单</span>
+            </button>
+            <button class="nav-item" data-page="local">
+                <i class="fas fa-folder-open"></i>
+                <span>本地</span>
+            </button>
+        </nav>
+        
+        <!-- 发现页面（分类音乐） -->
+        <div class="discover-page" id="discover-page">
+            <div class="discover-header">
+                <h2>发现音乐</h2>
+                <p>根据心情选择分类</p>
+            </div>
+            <div class="category-grid" id="category-grid">
+                <!-- 分类将通过JS生成 -->
+            </div>
+            <div class="category-songs" id="category-songs">
+                <!-- 分类歌曲列表 -->
+            </div>
+        </div>
+        
+        <!-- 主播放器区域 -->
+        <main class="player-main">
+            <!-- 左侧：封面和歌词 -->
+            <div class="player-left" id="player-page">
+                <div class="cover-container">
+                    <div class="cover-wrapper">
+                        <img id="cover-img" src="https://picsum.photos/400/400?random=1" alt="专辑封面">
+                        <div class="cover-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- 歌词显示区域 -->
+                <div class="lyrics-container" id="lyrics-container-mobile">
+                    <div class="lyrics-header">
+                        <span class="lyrics-label">歌词</span>
+                    </div>
+                    <div class="lyrics-content" id="lyrics-content">
+                        <div class="lyrics-placeholder">暂无歌词</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧：播放列表 -->
+            <div class="player-right" id="playlist-page">
+                <div class="playlist-header">
+                    <h2 id="playlist-title">播放列表</h2>
+                    <span class="playlist-count" id="playlist-count">0 首歌曲</span>
+                </div>
+                <div class="playlist-container" id="playlist-container">
+                    <!-- 播放列表项将通过 JS 动态生成 -->
+                </div>
+            </div>
         </main>
-    </body>
+        
+        <!-- 底部控制栏 -->
+        <footer class="player-controls">
+            <!-- 歌曲信息 -->
+            <div class="song-info">
+                <div class="song-title" id="song-title">选择一首歌曲</div>
+                <div class="song-artist" id="song-artist">未知艺术家</div>
+            </div>
+            
+            <!-- 控制按钮组 -->
+            <div class="controls-center">
+                <!-- 播放模式 -->
+                <button class="control-btn mode-btn" id="mode-btn" title="顺序播放">
+                    <i class="fas fa-list-ul"></i>
+                </button>
+                
+                <!-- 上一首 -->
+                <button class="control-btn prev-btn" id="prev-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                
+                <!-- 播放/暂停 -->
+                <button class="control-btn play-btn" id="play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                
+                <!-- 下一首 -->
+                <button class="control-btn next-btn" id="next-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                
+                <!-- 歌词开关 -->
+                <button class="control-btn lyrics-toggle" id="lyrics-toggle" title="显示/隐藏歌词">
+                    <i class="fas fa-align-center"></i>
+                </button>
+            </div>
+            
+            <!-- 进度条和音量 -->
+            <div class="controls-right">
+                <!-- 时间显示 -->
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span class="time-separator">/</span>
+                    <span id="total-time">0:00</span>
+                </div>
+                
+                <!-- 进度条 -->
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-handle" id="progress-handle"></div>
+                    </div>
+                </div>
+                
+                <!-- 音量控制 -->
+                <div class="volume-control">
+                    <button class="control-btn volume-btn" id="volume-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <div class="volume-slider-container">
+                        <div class="volume-slider" id="volume-slider">
+                            <div class="volume-fill" id="volume-fill"></div>
+                            <div class="volume-handle" id="volume-handle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- 搜索弹窗 -->
+        <div class="search-modal" id="search-modal">
+            <div class="search-modal-content">
+                <div class="search-modal-header">
+                    <h3 id="search-modal-title">搜索结果</h3>
+                    <button class="close-btn" id="close-search-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-results" id="search-results">
+                    <!-- 搜索结果将在这里显示 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 热门搜索弹窗 -->
+        <div class="hot-search-modal" id="hot-search-modal">
+            <div class="hot-search-content">
+                <div class="hot-search-header">
+                    <h3>热门搜索</h3>
+                    <button class="close-btn" id="close-hot-search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="hot-search-list" id="hot-search-list">
+                    <!-- 热门搜索标签 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐歌单弹窗 -->
+        <div class="playlist-modal" id="playlist-modal">
+            <div class="playlist-modal-content">
+                <div class="playlist-modal-header">
+                    <h3>推荐歌单</h3>
+                    <button class="close-btn" id="close-playlist-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="recommend-playlists" id="recommend-playlists">
+                    <!-- 推荐歌单 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 我的歌单管理弹窗 -->
+        <div class="my-playlists-modal" id="my-playlists-modal">
+            <div class="my-playlists-content">
+                <div class="my-playlists-header">
+                    <h3>我的歌单</h3>
+                    <button class="close-btn" id="close-my-playlists">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="my-playlists-actions">
+                    <button class="create-playlist-btn" id="create-playlist-btn">
+                        <i class="fas fa-plus"></i> 新建歌单
+                    </button>
+                </div>
+                <div class="my-playlists-grid" id="my-playlists-grid">
+                    <!-- 我的歌单列表 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 创建歌单弹窗 -->
+        <div class="create-playlist-modal" id="create-playlist-modal">
+            <div class="create-playlist-content">
+                <div class="create-playlist-header">
+                    <h3>新建歌单</h3>
+                    <button class="close-btn" id="close-create-playlist">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="create-playlist-form">
+                    <input type="text" id="new-playlist-name" placeholder="歌单名称" maxlength="20">
+                    <textarea id="new-playlist-desc" placeholder="歌单描述（可选）" maxlength="100" rows="3"></textarea>
+                    <button class="confirm-create-btn" id="confirm-create-btn">创建</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MusicFree 插件切换弹窗 -->
+        <div class="plugin-modal" id="plugin-modal">
+            <div class="plugin-modal-content">
+                <div class="plugin-modal-header">
+                    <h3>选择音乐源</h3>
+                    <button class="close-btn" id="close-plugin-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="plugin-list" id="plugin-list">
+                    <!-- 插件列表将通过JS生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 加载动画 -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>搜索中...</span>
+            </div>
+        </div>
+        
+        <!-- 音频元素 -->
+        <audio id="audio-player" preload="metadata"></audio>
+    </div>
+    
+    <script src="js/lyrics.js"></script>
+    <script src="js/playlist.js"></script>
+    <script src="js/playlistManager.js"></script>
+    <script src="js/musicFreePlugin.js"></script>
+    <script src="js/musicSearch.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/mobile.js"></script>
+</body>
 </html>
