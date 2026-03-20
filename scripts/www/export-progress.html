@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导出进度</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="export-overlay">
+        <div class="export-progress-container">
+            <!-- 进度图标 -->
+            <div class="progress-icon">
+                <i class="ri-loader-2-fill"></i>
+            </div>
+
+            <!-- 进度标题 -->
+            <h2 class="progress-title">正在导出数据</h2>
+            <p class="progress-description">请不要关闭页面，正在准备您的文件</p>
+
+            <!-- 进度条 -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 60%"></div>
+            </div>
+
+            <!-- 进度信息 -->
+            <div class="progress-info">
+                <span class="progress-percent">60%</span>
+                <span class="remaining-time">剩余时间：约2秒</span>
+            </div>
+
+            <!-- 当前处理项 -->
+            <div class="current-task">
+                <div class="task-icon">
+                    <i class="ri-image-fill"></i>
+                </div>
+                <div class="task-content">
+                    <p class="task-title">正在压缩图片文件</p>
+                    <p class="task-details">文件2/2：设备现场图片3.jpg</p>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="progress-actions">
+                <button class="cancel-export-btn">取消导出</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="export-progress.js"></script>
+</body>
+</html>
