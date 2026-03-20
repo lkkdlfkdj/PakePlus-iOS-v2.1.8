@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导出选项</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="export-overlay">
+        <div class="export-container">
+            <!-- 弹窗头部 -->
+            <div class="export-header">
+                <h2 class="export-title">导出数据</h2>
+                <div class="close-btn">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <!-- 导出选项区域 -->
+            <div class="export-options">
+                <p class="options-description">请选择需要导出的内容类型，可多选</p>
+                
+                <!-- 选项卡片-图片 -->
+                <div class="option-card selected">
+                    <div class="option-header">
+                        <div class="checkbox-container">
+                            <div class="checkbox checked">
+                                <i class="ri-check-line"></i>
+                            </div>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">
+                                <i class="ri-image-fill"></i>
+                                <span>现场图片</span>
+                            </div>
+                            <p class="option-description">包含问题现场拍摄的所有高清图片，附带拍摄时间、位置信息</p>
+                            
+                            <!-- 图片预览区域 -->
+                            <div class="image-preview">
+                                <h4 class="preview-title">预览（共3张）</h4>
+                                <div class="preview-images">
+                                    <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2035027021136502784.jpg" alt="预览图1">
+                                    <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2035027033002876928.jpg" alt="预览图2">
+                                    <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2035027045488992256.jpg" alt="预览图3">
+                                </div>
+                                <p class="image-info">分辨率：1920×1080 | 总大小：4.2MB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 选项卡片-定位 -->
+                <div class="option-card">
+                    <div class="option-header">
+                        <div class="checkbox-container">
+                            <div class="checkbox">
+                                <i class="ri-check-line"></i>
+                            </div>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">
+                                <i class="ri-map-pin-fill"></i>
+                                <span>定位数据</span>
+                            </div>
+                            <p class="option-description">包含问题发生的精确GPS坐标、地址信息、海拔高度数据</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 选项卡片-问题描述 -->
+                <div class="option-card">
+                    <div class="option-header">
+                        <div class="checkbox-container">
+                            <div class="checkbox">
+                                <i class="ri-check-line"></i>
+                            </div>
+                        </div>
+                        <div class="option-content">
+                            <div class="option-title">
+                                <i class="ri-file-text-fill"></i>
+                                <span>问题描述</span>
+                            </div>
+                            <p class="option-description">包含问题详细描述、上报人信息、故障等级、处理建议等文本数据</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导出格式选择 -->
+            <div class="export-format">
+                <h3 class="format-title">导出格式</h3>
+                <div class="format-options">
+                    <div class="format-option selected">
+                        <div class="format-icon">
+                            <i class="ri-file-pdf-fill"></i>
+                        </div>
+                        <span class="format-name">PDF</span>
+                    </div>
+                    <div class="format-option">
+                        <div class="format-icon">
+                            <i class="ri-file-excel-fill"></i>
+                        </div>
+                        <span class="format-name">Excel</span>
+                    </div>
+                    <div class="format-option">
+                        <div class="format-icon">
+                            <i class="ri-file-image-fill"></i>
+                        </div>
+                        <span class="format-name">图片</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="export-actions">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">确认导出</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="export.js"></script>
+</body>
+</html>
