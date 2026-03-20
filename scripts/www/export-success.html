@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导出成功</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="export-overlay">
+        <div class="export-success-container">
+            <!-- 成功图标 -->
+            <div class="success-icon">
+                <i class="ri-check-line"></i>
+            </div>
+
+            <!-- 成功标题 -->
+            <h2 class="success-title">导出成功</h2>
+            <p class="success-description">文件已准备完成，点击下方按钮下载</p>
+
+            <!-- 文件信息卡片 -->
+            <div class="file-info-card">
+                <div class="file-icon">
+                    <i class="ri-file-pdf-fill"></i>
+                </div>
+                <div class="file-details">
+                    <p class="file-name">设备温度异常告警_20260320_张工.pdf</p>
+                    <p class="file-info">PDF文档 · 4.8MB · 2026-03-20 15:42</p>
+                </div>
+            </div>
+
+            <!-- 文件预览 -->
+            <div class="file-preview">
+                <h4 class="preview-title">文件预览</h4>
+                <div class="preview-content">
+                    <div class="preview-header">
+                        <i class="ri-file-pdf-fill"></i>
+                        <span>文档预览</span>
+                    </div>
+                    <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2035028007457136640.png" alt="文档预览" class="preview-image">
+                </div>
+            </div>
+
+            <!-- 操作按钮区域 -->
+            <div class="success-actions">
+                <button class="download-btn">
+                    <i class="ri-download-line"></i>
+                    <span>下载文件</span>
+                </button>
+                <button class="share-btn">
+                    <i class="ri-share-line"></i>
+                    <span>分享给同事</span>
+                </button>
+                <button class="history-btn">查看导出历史</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="export-success.js"></script>
+</body>
+</html>
