@@ -1,88 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="./static/css/styles.css" />
-        <meta
-            http-equiv="Content-Security-Policy"
-            content="default-src * 'unsafe-inline' 'unsafe-eval'"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tauri App</title>
-        <script src="./static/js/main.js"></script>
-    </head>
-    <body>
-        <main class="container">
-            <h1>Welcome to TauriMan</h1>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公共设施隐患上报</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="top-nav">
+            <div class="back-btn">
+                <i class="ri-arrow-left-line"></i>
+            </div>
+            <h1 class="title">公共设施隐患上报</h1>
+            <div class="help-btn">
+                <i class="ri-question-mark"></i>
+            </div>
+        </header>
 
-            <div class="row">
-                <a
-                    href="https://tauri.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img
-                        src="./assets/tauri.svg"
-                        class="logo tauri"
-                        alt="Tauri logo"
-                    />
-                </a>
-                <a
-                    href="https://pakeplus.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img
-                        src="https://hk.gh-proxy.org/https://github.com/Sjj1024/PakePlus/blob/main/app-icon.png"
-                        class="logo vanilla"
-                        alt="JavaScript logo"
-                    />
-                </a>
-            </div>
-            <p>Click to get data</p>
-            <form class="row" id="greet-form">
-                <input id="greet-input" placeholder="Enter a name..." />
-                <button type="submit" id="getdata">GET DATA</button>
-            </form>
-            <div class="functions">
-                <a href="./book.html" target="_self">跳转到book.html</a>
-                <a
-                    href="https://www.baidu.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >跳到百度blank
-                </a>
-                <a
-                    href="https://www.baidu.com"
-                    target="_self"
-                    rel="noopener noreferrer"
-                >
-                    跳到百度self
-                </a>
-                <button onclick="sayHello()">点击我</button>
-                <button onclick="sayHello()">下载文件</button>
-                <button onclick="sayHello()">上传文件</button>
-                <button onclick="sayHello()">访问相机</button>
-                <button onclick="sayHello()">访问麦克风</button>
-                <button onclick="sayHello()">访问相册</button>
-                <button class="btn" onclick="openWechat()">打开微信</button>
-                <button class="btn" onclick="openWechatScan()">
-                    打开扫一扫
-                </button>
-                <button class="btn" onclick="openZhihu()">打开知乎</button>
-                <button onclick="sayHello()">打开抖音</button>
-                <button onclick="sayHello()">用浏览器打开</button>
-                <button>打开知乎</button>
-            </div>
-            <p id="greet-msg"></p>
-            <img src="./static/image/cursor.jpeg" alt="logo" />
-            <video
-                src="https://hk.gh-proxy.org/https://github.com/Sjj1024/PakePlus/blob/main/docs/static/videos/pakeplus.mp4"
-                autoplay
-                controls
-                style="width: 100%; height: 100%"
-            ></video>
-            <audio src="./static/music/yin.mp3" controls></audio>
+        <!-- 表单容器 -->
+        <main class="form-container">
+            <!-- 隐患位置模块 -->
+            <section class="module">
+                <div class="module-title">
+                    <span class="required-mark"></span>
+                    <h2>隐患位置</h2>
+                </div>
+                
+                <!-- 地图区域 -->
+                <div class="map-area">
+                    <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/1993870584029151232.jpg" alt="地图" class="map-bg">
+                    <div class="location-marker">
+                        <i class="ri-map-pin-fill"></i>
+                    </div>
+                    <button class="locate-btn">
+                        <i class="ri-compass-3-fill"></i>
+                    </button>
+                </div>
+                
+                <!-- 地址信息栏 -->
+                <div class="address-bar">
+                    <div class="location-icon">
+                        <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div class="address-details">
+                        <p class="address">北京市朝阳区建国路88号</p>
+                        <p class="distance">距离您当前位置120米</p>
+                    </div>
+                    <button class="edit-btn">
+                        <i class="ri-edit-line"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 权属类别模块 -->
+            <section class="module">
+                <div class="module-title">
+                    <span class="required-mark"></span>
+                    <h2>权属类别</h2>
+                </div>
+                
+                <!-- 权属类别下拉框 -->
+                <div class="dropdown-container">
+                    <select class="dropdown-select" id="ownershipType">
+                        <option value="">请选择权属类别</option>
+                        <option value="市政">市政</option>
+                        <option value="电力">电力</option>
+                        <option value="通信">通信</option>
+                        <option value="水务">水务</option>
+                        <option value="燃气">燃气</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- 隐患类型模块 -->
+            <section class="module">
+                <div class="module-title">
+                    <span class="required-mark"></span>
+                    <h2>隐患类型</h2>
+                </div>
+                
+                <!-- 隐患类型下拉框 -->
+                <div class="dropdown-container">
+                    <select class="dropdown-select" id="hazardType">
+                        <option value="">请选择隐患类型</option>
+                        <option value="丢失">丢失</option>
+                        <option value="破损">破损</option>
+                        <option value="断裂">断裂</option>
+                        <option value="松动">松动</option>
+                        <option value="沉降">沉降</option>
+                        <option value="高低不平">高低不平</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                
+
+            </section>
+            
+            <!-- 现场照片模块 -->
+            <section class="module">
+                <div class="module-title">
+                    <span class="required-mark"></span>
+                    <h2>现场照片</h2>
+                    <span class="photo-count">最多9张</span>
+                </div>
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2034868105946013696.jpg" alt="照片1">
+                        <div class="delete-btn">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://prototype-prod-1254106194.cos.ap-beijing.myqcloud.com/calicat/file/ai/canvas/image/2034868105946013696.jpg" alt="照片2">
+                        <div class="delete-btn">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
+                    <div class="photo-item add-photo">
+                        <i class="ri-camera-fill"></i>
+                        <p>添加照片</p>
+                        <input type="file" class="photo-input" accept="image/*" multiple>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 提交按钮 -->
+            <button class="submit-btn">提交上报</button>
         </main>
-    </body>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
